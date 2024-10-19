@@ -14,23 +14,5 @@
 	<name>passengerservice</name>
 	<description>Passenger Service</description>
 
-	
-	<dependencies>
-		
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-jaxrs</artifactId>
-			<version>1.9.13</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-xc</artifactId>
-			<version>1.9.13</version>
-		</dependency>
-
-
-	</dependencies>
-
 
 </project>
