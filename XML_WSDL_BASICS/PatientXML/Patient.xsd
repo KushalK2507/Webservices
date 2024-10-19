@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.kushal.org/Patient"
+	xmlns:tns="http://www.kushal.org/Patient" elementFormDefault="qualified"> <!--  tns=targetNamespace(any name) -->
+	
+	<element name="patient" type="tns:Patient"/> <!-- here Patient is complex type which is not pre-defined it is defined below by us -->
+	
+	<complexType name="Patient">
+		<sequence> <!-- defines all the elements defined below must come in a sequence that we define below  -->
+		<element name ="id" type="tns:ID" maxOccurs="2"/> <!-- In this we have used the ID to restrict the value of the from 0 to 9  and attribute "maxOccurs" means that ID be 2 and 1 ID can be also present and XML does not gives any error in validation-->
+		<element name="name" type="tns:String15chars"/>
+		<element name="age" type="int" minOccurs="0"/><!-- Min Occurs made the ocurrence of the element as optional -->
+		<element name="email" type="string" maxOccurs="unbounded"/><!-- unbounded means can be any no of occurences. -->
+		<element name="dob" type="date"/>
+		<element name="gender" type="tns:Gender"/>
+		<element name="phone" type="string"/>
+		<element name="payment" type="tns:PaymentType"/><!-- In this Payment Type is another complex which is used inside patient complex type -->
+		</sequence>
+		<attribute name="SrNo" type="tns:ID" ></attribute>
+	</complexType>
+	
+	<complexType name="PaymentType">
+	<choice> <!-- Choice implies that only one should occur only -->
+	<element name="cash" type="int"/>
+	<element name="insureance" type="tns:Insurance"/> <!-- In this one complex is used inside the other complex type (Insurance is a complex type which is used inside PaymentType)-->
+	</choice>
+	</complexType>
+	
+	<complexType name="Insurance">
+	<all><!-- all means all the elements must appear but order does not matter -->
+		<element name="Provider" type="string"/>
+		<element name="limit" type="int"></element>
+	</all>
+	</complexType>
+	
+	<!-- In this we have used ID to restrict (Integer Restriction) the value of id used above to be between 0 to 9 -->
+	<simpleType name="ID"> <!-- This is simple type which is used to restrict the value of id which is used in above complex type -->
+	<restriction base="int"> <!-- There are many types of restriction which can be seen by pressing cntrl+Space after this tag -->
+		<pattern value="[0-9]"/>
+	</restriction>
+	</simpleType>
+	
+	<!-- In this we have used String15chars to restrict (String Restriction) the maximum length of name which is used in complex type to 15 -->
+	<simpleType name="String15chars">
+	<restriction base="string"> <!-- Base class defines which type of dataType to be used for restriction  -->
+	<maxLength value="15"/>
+	</restriction>
+	</simpleType>
+	
+	<!-- In this we have used to restrict the value  gender to be MALE or FEMALE-->
+	<simpleType name="Gender">
+	<restriction base="string">
+	<enumeration value="M"/>
+	<enumeration value="F"/>
+	</restriction>
+	</simpleType>
+	
+	
+	
+</schema>

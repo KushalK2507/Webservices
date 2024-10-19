@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>SOAPWebServices</groupId>
+	<artifactId>SOAP_WS_Projects</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	
+	</parent>
+	<groupId>com.kushal.ws.soap</groupId>
+	<artifactId>javasoapclient</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>javasoapclient</name>
+	<description>JAVA SOAP CLIENT</description>
+
+	
+	
+	<build>
+
+		<plugins>
+			
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-codegen-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+					<?m2e execute onConfiguration?>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
+							<wsdlOptions>
+								<wsdlOption>
+									<wsdl>${basedir}/src/main/resources/wsdl/CustomerOrders.wsdl</wsdl>
+									<wsdlLocation>classpath:CustomerOrders.wsdl</wsdlLocation>
+								</wsdlOption>
+							</wsdlOptions>
+						</configuration>
+						<goals>
+							<goal>wsdl2java</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+</project>

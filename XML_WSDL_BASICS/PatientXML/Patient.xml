@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:patient xmlns:tns="http://www.kushal.org/Patient" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.kushal.org/Patient Patient.xsd"
+ SrNo="1">
+  <tns:id>0</tns:id>
+  <tns:id>1</tns:id>
+  <tns:name>tns:name</tns:name>
+  <tns:age>0</tns:age>
+  <tns:email>abc@gmail.com</tns:email>
+  <tns:email>def@gmail.vom</tns:email>
+  <tns:dob>2001-01-01</tns:dob>
+  <tns:gender>M</tns:gender>
+  <tns:phone>tns:phone</tns:phone>
+  <tns:payment>
+    <!-- <tns:cash>0</tns:cash> By default it shows Cash -->
+    <tns:insureance>
+    <tns:Provider>Blue Cross</tns:Provider>
+    <tns:limit>1000</tns:limit>
+    </tns:insureance>
+  </tns:payment>
+</tns:patient>

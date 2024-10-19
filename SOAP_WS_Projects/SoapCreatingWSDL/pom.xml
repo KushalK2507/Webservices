@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.5</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>org.kushal</groupId>
+	<artifactId>SoapCreatingWSDL</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>SoapCreatingWSDL</name>
+	<description>SOAP Pratise Project</description>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-java2ws-plugin</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-ws-security</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-java2ws-plugin</artifactId>
+				<version>3.4.2</version>
+				<executions>
+					<execution>
+
+						<id>process-classes</id>
+						<phase>process-classes</phase>
+						<configuration>
+							<className>org.kushal.service.CustomerOrderService</className>
+							<genWsdl>true</genWsdl>
+							<verbose>true</verbose>
+							<argline>
+								-createxsdimports
+							</argline>
+
+						</configuration>
+						<goals>
+							<goal>java2ws</goal>
+						</goals>
+					</execution>
+
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>schemagen</id>
+						<goals>
+							<goal>schemagen</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<transformSchemas>
+						<transformSchema>
+							<uri>http://www.kushal.com/CustomerOrderResponse</uri>
+							<toPrefix>customerRes</toPrefix>
+							<toFile>CustomerOrderResponse.xsd</toFile>
+						</transformSchema>
+						<transformSchema>
+							<uri>http://www.kushal.com/CustomerOrderRequest</uri>
+							<toPrefix>customerReq</toPrefix>
+							<toFile>CustomerOrderRequest.xsd</toFile>
+						</transformSchema>
+						<transformSchema>
+							<uri>http://www.kushal.com/ShipmentDetails</uri>
+							<toPrefix>shipmentDet</toPrefix>
+							<toFile>ShipmentDetails.xsd</toFile>
+						</transformSchema>
+
+					</transformSchemas>
+					<verbose>true</verbose>
+					<includes>
+						<include>org/kushal/entity/*</include>
+					</includes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

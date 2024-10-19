@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions 
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:tns="http://bharaththippireddy.com/userProfile" 
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+		name="UserProfileService" 
+		targetNamespace="http://bharaththippireddy.com/userProfile"
+		xmlns:upSchema="http://bharaththippireddy.com/userProfile/schema/UserProfile.xsd">
+		
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://bharaththippireddy.com/userProfile" elementFormDefault="qualified">
+	  <xsd:import  namespace="http://bharaththippireddy.com/userProfile/schema/UserProfile.xsd" schemaLocation="UserProfile.xsd"/> <!--  imported the whole schema file that defines the response-->
+		<!-- The below is the request part which contains USERNAME as input--> 
+		<xsd:element name="GetUserProfile">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="userName" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+		</xsd:element>
+		<!-- The below is response  -->
+	    <xsd:element name="GetUserProfileResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="UserProfile" type="upSchema:UserProfile"/> <!-- Instead whole response we define XSD and import that here -->
+			</xsd:sequence>
+		</xsd:complexType>
+		</xsd:element>
+    </xsd:schema>
+  </wsdl:types> 
+  
+  <!--  We use types in the below portion as messages. -->
+  <!--  We have 2 messages 1 is request and 2 is response -->
+  <!--  Messages are analogous to parameters and return types in JAVA -->
+  <wsdl:message name="GetUserProfileRequest">
+    <wsdl:part name="params" element="tns:GetUserProfile"/>
+  </wsdl:message>
+  <wsdl:message name="GetUserProfileResponse">
+    <wsdl:part name="result" element="tns:GetUserProfileResponse"/>
+  </wsdl:message>
+  
+  <!--  Above messages are used in operation which is similiar to methods in JAVA  -->
+  <wsdl:portType name="UserProfilePortType"> 
+  <!--  In porttype we define all the operation use in WSDL and this is used to for binding the 
+  ABSTRACT PORTION with PHYSICAL PORTION-->
+    <wsdl:operation name="GetUserProfile">
+      <wsdl:input message="tns:GetUserProfileRequest"/>
+      <wsdl:output message="tns:GetUserProfileResponse"/>
+    </wsdl:operation>	
+  </wsdl:portType>
+  <!--  Above are the ABSTRACT PORTION -->
+  
+  <!-- Below starts the PHYSICAL PORTION -->
+    <wsdl:binding name="UserProfileBinding" type="tns:UserProfilePortType"> <!-- Binding comprises of Soap Binding  -->
+    <!-- here type = "porttype" for binding the ABSTRACT and PHYSICAL PORTION of the WSDL --> 
+    <!-- Binding connects ABSTRACT and PRHYSICAL PORTION of tyhe WSDl--> 
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/> <!-- Soap Binding by default is document -->
+    <wsdl:operation name="GetUserProfile">
+      <soap:operation soapAction="urn:GetUserProfile"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  
+  <wsdl:service name="UserProfileService">
+    <wsdl:port binding="tns:UserProfileBinding" name="UserProfilePort">
+		<soap:address location="http://localhost/services/UserProfileService"/> <!-- Location of the service which is used by this WSDL -->
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

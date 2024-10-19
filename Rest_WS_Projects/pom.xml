@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>WebServices</groupId>
+		<artifactId>All_Webservices</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>RestWebServices</groupId>
+	<artifactId>Rest_WS_Projects</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Rest WebServices</name>
+
+	<modules>
+		<module>passengerservice</module>
+		<module>restws</module>
+		<module>restws_Exception</module>
+		<module>restws_ExceptionForClient</module>
+		<module>restws_JSON</module>
+		<module>restwsClient</module>
+		<module>reswsaync</module>
+		<module>reswsayncclient</module>
+		<module>springsecurity</module>
+		<module>restattachments</module>
+		<module>restattachmentsclient</module>
+		<module>jerseyws</module>
+		<module>productCRUD</module>
+		<module>spring-security-auth-server</module>
+		<module>spring-security-auth-client</module>
+		<module>swagger</module>
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-spring-boot-starter-jaxrs</artifactId>
+			<version>3.2.5</version>
+		</dependency>
+	</dependencies>
+</project>
