@@ -50,5 +50,12 @@
 			<artifactId>jackson-jaxrs</artifactId>
 			<version>1.9.13</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>3.3.4</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 </project>
