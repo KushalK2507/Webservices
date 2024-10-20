@@ -1,4 +1,4 @@
-package com.kushal.swagger.controller;
+package com.kushal.springdoc.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

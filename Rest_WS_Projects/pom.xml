@@ -29,7 +29,7 @@
 		<module>productCRUD</module>
 		<module>spring-security-auth-server</module>
 		<module>spring-security-auth-client</module>
-		<module>swagger</module>
+		<module>springdoc</module>
 	</modules>
 
 	<dependencies>

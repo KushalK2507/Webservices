@@ -1,48 +1,44 @@
 package com.kushal.rs.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.oidc.OidcScopes;
+import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.UUID;
 
 @Configuration
-@EnableAuthorizationServer
-public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig {
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
-	@Override
-	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-		// Below we are allowing who all can access the autherization Key, for now we
-		// are permitting all.
-		// And for validation of this token we need to check token isAuthenticated or
-		// not.
-		// Below we have implemented the authorization for the Authentication we
-		// implemented in Resource Server Configuration.
-		security.tokenKeyAccess("premitAll()").checkTokenAccess("isAuthenticated()");
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+
+		return http.formLogin(Customizer.withDefaults()).build();
 	}
 
-	// Below configurer adapter is overrided which has client details.
-	@Override
-	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+	@Bean
+	public RegisteredClientRepository registeredClientRepository() {
+		RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
+				.clientId("client-id")
+				.clientSecret("{noop}client-secret")
+				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+				.scope(OidcScopes.OPENID)
+				.scope("custom-scope")
+				.redirectUri("http://localhost:8081/auth/login/")
+				.build();
 
-		// In below we have created the im Memory access to ClientID and secret from
-		// which client is accessing.
-		// Below with AutoApprove we are just saying that token are generated.
-		clients.inMemory().withClient("ClientID").secret("secret").authorizedGrantTypes("authorization_scopes")
-				.scopes("user_info").autoApprove(true);
-	}
-
-	// Below is the endpoint override
-	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		
-		// We need to override the endpoint with the authenticationManager which we created in Resource Configuration.
-			endpoints.authenticationManager(authenticationManager);
+    return new InMemoryRegisteredClientRepository(registeredClient);
 	}
 
 }

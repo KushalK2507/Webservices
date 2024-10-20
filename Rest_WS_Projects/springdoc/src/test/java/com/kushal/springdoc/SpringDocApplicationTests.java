@@ -1,4 +1,4 @@
-package com.kushal.swagger;
+package com.kushal.springdoc;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class SwaggerApplicationTests {
+public class SpringDocApplicationTests {
 
   @Test
   public void contextLoads() {}

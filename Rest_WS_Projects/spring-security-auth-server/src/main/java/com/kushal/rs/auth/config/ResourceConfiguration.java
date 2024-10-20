@@ -6,16 +6,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-@EnableResourceServer
 @Configuration
 public class ResourceConfiguration {
-
-  @Autowired AuthenticationManager authenticationManager;
 
   @Bean
   protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -27,8 +25,7 @@ public class ResourceConfiguration {
                     .requestMatchers("/login", "/oauth/authorize")
                     .permitAll()
                     .anyRequest()
-                    .authenticated())
-        .formLogin(Customizer.withDefaults())
+                    .authenticated()).oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
         .build();
   }
 
