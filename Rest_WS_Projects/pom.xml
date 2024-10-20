@@ -22,14 +22,10 @@
 		<module>restwsClient</module>
 		<module>reswsaync</module>
 		<module>reswsayncclient</module>
-		<module>springsecurity</module>
 		<module>restattachments</module>
 		<module>restattachmentsclient</module>
 		<module>jerseyws</module>
 		<module>productCRUD</module>
-		<module>spring-security-auth-server</module>
-		<module>spring-security-auth-client</module>
-		<module>springdoc</module>
 	</modules>
 
 	<dependencies>

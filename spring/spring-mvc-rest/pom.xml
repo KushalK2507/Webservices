@@ -5,14 +5,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>com.kushal.spring</groupId>
-		<artifactId>springmvc</artifactId>
+		<artifactId>spring</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.bharath.rest.webservices</groupId>
-	<artifactId>springrest</artifactId>
+	<artifactId>spring-mvc-rest</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
 	<name>Spring MVC REST</name>
@@ -38,7 +38,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>springrest</finalName>
+		<finalName>spring-mvc-rest</finalName>
 	</build>
 	<dependencies>
 		<dependency>
