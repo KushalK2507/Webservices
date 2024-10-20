@@ -26,6 +26,7 @@
 		<module>restattachmentsclient</module>
 		<module>jerseyws</module>
 		<module>productCRUD</module>
+		<module>spring-security</module>
 	</modules>
 
 	<dependencies>
