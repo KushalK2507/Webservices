@@ -7,6 +7,8 @@ import lombok.*;
 @Builder
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClientDetails {
 
   @Id

@@ -26,12 +26,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SpringSecurityConfig {
-
   private final JwtAuthFilter jwtAuthFilter;
-
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-
     httpSecurity
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(
@@ -45,23 +42,23 @@ public class SpringSecurityConfig {
                     .authenticated())
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authenticationProvider(authenticationProvider())
-        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
+        .authenticationProvider(
+            authenticationProvider()) // This defines type of Authentication we would use
+        .addFilterBefore(
+            jwtAuthFilter,
+            UsernamePasswordAuthenticationFilter
+                .class); // This would be JWT filter to validate user
     return httpSecurity.build();
   }
-
   @Bean
   @Primary
   public UserDetailsService userDetailsService() {
     return new ClientDetailsDomainServiceImpl();
   }
-
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-
   @Bean
   public AuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -69,7 +66,6 @@ public class SpringSecurityConfig {
     authenticationProvider.setPasswordEncoder(passwordEncoder());
     return authenticationProvider;
   }
-
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)
       throws Exception {

@@ -1,4 +1,4 @@
-package com.kushal.spring.security.jwt.model;
+package org.kushal.reactive.model;
 
 import java.util.List;
 import lombok.*;

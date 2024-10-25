@@ -1,11 +1,11 @@
-package com.kushal.spring.security.jwt.domain.mapper;
+package org.kushal.reactive.domain.mapper;
 
-import com.kushal.spring.security.jwt.domain.dto.ClientDetailsDto;
-import com.kushal.spring.security.jwt.domain.entity.ClientDetails;
-import com.kushal.spring.security.jwt.model.ClientRequest;
-import com.kushal.spring.security.jwt.model.ClientResponse;
 import java.util.Arrays;
 import lombok.AllArgsConstructor;
+import org.kushal.reactive.domain.dto.ClientDetailsDto;
+import org.kushal.reactive.domain.entity.ClientDetails;
+import org.kushal.reactive.model.ClientRequest;
+import org.kushal.reactive.model.ClientResponse;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +29,8 @@ public class ClientDetailsMapper {
     builder
         .clientName(clientDetails.getClientName())
         .role(clientDetails.getRole())
-        .services(Arrays.stream(clientDetails.getServices().split(",")).toList());
+        .token(clientDetails.getToken())
+        .services(Arrays.stream(clientDetails.getAccessServices().split(",")).toList());
     return builder.build();
   }
 
@@ -38,7 +39,7 @@ public class ClientDetailsMapper {
     builder
         .clientName(clientDetailsDto.getClientName())
         .role(clientDetailsDto.getRole())
-        .services(String.join(",", clientDetailsDto.getServices()))
+        .accessServices(String.join(",", clientDetailsDto.getServices()))
         .token(passwordEncoder.encode(clientDetailsDto.getToken()));
     return builder.build();
   }
