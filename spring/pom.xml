@@ -15,6 +15,7 @@
         <module>spring-doc</module>
         <module>spring-security-jwt</module>
         <module>spring-webflux</module>
+        <module>spring-webflux-jwt</module>
     </modules>
 
     <dependencies>

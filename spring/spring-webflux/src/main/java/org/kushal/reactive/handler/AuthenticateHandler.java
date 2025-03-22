@@ -34,8 +34,11 @@ public class AuthenticateHandler {
   }
 
   public Mono<ServerResponse> getClientDetails(ServerRequest request) {
-    return ServerResponse.status(HttpStatus.NOT_FOUND)
-        .body(BodyInserters.fromValue("Client Not Found"));
+
+      if ("Kushal".equals(request.pathVariable("clientName"))){
+          return ServerResponse.status(HttpStatus.OK).body(BodyInserters.fromValue("Welcome "+request.pathVariable("clientName")));
+      }
+      return Mono.error(new ClientNotFoundException("Invalid Client Name"));
   }
 
   public Mono<ServerResponse> generateToken(ServerRequest request) {
@@ -49,7 +52,11 @@ public class AuthenticateHandler {
               log.info("Error in Generating Token", error);
               return ServerResponse.status(HttpStatus.UNAUTHORIZED)
                   .body(BodyInserters.fromValue("Client name does not exists"));
-            });
+            })
+            .switchIfEmpty(Mono.defer(() ->{ log.info("User does not exist");
+            return      ServerResponse.status(HttpStatus.UNAUTHORIZED)
+                    .body(BodyInserters.fromValue("Client name does not exists"));
+            }));
   }
 
   public Mono<ClientRequest> validateUser(ClientRequest clientRequest) {
